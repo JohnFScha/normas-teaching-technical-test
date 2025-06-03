@@ -1,39 +1,106 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UsersController } from './users.controller';
+import { UsersService } from './users.service';
+
+const createUserDto: CreateUserDto = {
+  firstName: 'firstName #1',
+  lastName: 'lastName #1',
+  email: 'test@email.com',
+  password: '12345678',
+  isActive: true, // Optional field
+};
 
 describe('UsersController', () => {
-  let controller: UsersController;
+  let usersController: UsersController;
+  let usersService: UsersService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    const app: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
+      providers: [
+        UsersService,
+        {
+          provide: UsersService,
+          useValue: {
+            create: jest
+              .fn()
+              .mockImplementation((user: CreateUserDto) =>
+                Promise.resolve({ id: '638ce079-8c29-4601-875b-6fe957ae42c8', ...user }),
+              ),
+            findAll: jest.fn().mockResolvedValue([
+              {
+                firstName: 'firstName #1',
+                lastName: 'lastName #1',
+                email: 'test@email.com',
+              },
+              {
+                firstName: 'firstName #2',
+                lastName: 'lastName #2',
+                email: 'test@email.com',
+              },
+            ]),
+            findOne: jest.fn().mockImplementation((id: string) =>
+              Promise.resolve({
+                firstName: 'firstName #1',
+                lastName: 'lastName #1',
+                email: 'test@email.com',
+                id,
+              }),
+            ),
+            remove: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
+    usersController = app.get<UsersController>(UsersController);
+    usersService = app.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(usersController).toBeDefined();
   });
 
-  it('should return a list of users', async () => {
-    const result = await controller.findAll();
-    expect(result).toBeInstanceOf(Array);
+  describe('create()', () => {
+    it('should create a user', () => {
+      usersController.create(createUserDto);
+      expect(usersController.create(createUserDto)).resolves.toEqual({
+        id: '638ce079-8c29-4601-875b-6fe957ae42c8',
+        ...createUserDto,
+      });
+      expect(usersService.create).toHaveBeenCalledWith(
+        createUserDto,
+      );
+    });
   });
 
-  it('should return a user by id', async () => {
-    const userId = '3acab044-09c6-4c3e-b04c-3bd58406979e';
-    const result = await controller.findOne(userId);
-    expect(result).toHaveProperty('id', userId);
+  describe('findAll()', () => {
+    it('should find all users ', () => {
+      usersController.findAll();
+      expect(usersService.findAll).toHaveBeenCalled();
+    });
   });
 
-  it('should create a new user', async () => {
-    const newUser = { id: "638ce079-8c29-4601-875b-6fe957ae42c8", firstName: 'John', lastName: 'Doe', email: 'john.doe@example.com', password: 'password', isActive: true };
-    const result = await controller.create(newUser);
-    expect(result).toHaveProperty('id');
-    expect(result).toHaveProperty('firstName', newUser.firstName);
-    expect(result).toHaveProperty('lastName', newUser.lastName);
-    expect(result).toHaveProperty('email', newUser.email);
-    expect(result).toHaveProperty('isActive', newUser.isActive);
+  describe('findOne()', () => {
+    it('should find a user', () => {
+      expect(
+        usersController.findOne('638ce079-8c29-4601-875b-6fe957ae42c8'),
+      ).resolves.toEqual({
+        firstName: 'firstName #1',
+        lastName: 'lastName #1',
+        email: 'test@email.com',
+        id: '638ce079-8c29-4601-875b-6fe957ae42c8',
+      });
+      expect(usersService.findOne).toHaveBeenCalled();
+    });
+  });
+
+  describe('remove()', () => {
+    it('should remove the user', () => {
+      usersController.remove('638ce079-8c29-4601-875b-6fe957ae42c8');
+      expect(usersService.remove).toHaveBeenCalled();
+    });
   });
 });
