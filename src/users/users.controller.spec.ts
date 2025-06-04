@@ -10,6 +10,7 @@ const createUserDto: CreateUserDto = {
   email: 'test@email.com',
   password: '12345678',
   isActive: true, // Optional field
+  favorites: [], // Optional field
 };
 
 describe('UsersController', () => {

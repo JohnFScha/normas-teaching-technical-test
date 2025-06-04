@@ -5,4 +5,5 @@ export class CreateUserDto {
   email: string;
   password: string;
   isActive: boolean; // Optional, defaults to true
+  favorites: any[]; // Optional field
 }
