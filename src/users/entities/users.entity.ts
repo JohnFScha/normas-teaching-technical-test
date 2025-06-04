@@ -21,6 +21,6 @@ export class User {
   @Column('boolean', { default: true })
   isActive: boolean;
 
-  @OneToMany(() => Favorite, (favorite) => favorite.user, { eager: true })
+  @OneToMany(() => Favorite, (favorite) => favorite.userId, { eager: true })
   favorites: Favorite[];
 }
