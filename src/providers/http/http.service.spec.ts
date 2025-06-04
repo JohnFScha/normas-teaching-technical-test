@@ -1,15 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HttpService } from './http.service';
+import { HttpPrivateService } from './http.service';
+import { HttpModule } from '@nestjs/axios';
 
-describe('HttpService', () => {
-  let service: HttpService;
+describe('HttpPrivateService', () => {
+  let service: HttpPrivateService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [HttpService],
+      providers: [HttpPrivateService],
+      imports: [HttpModule],
     }).compile();
 
-    service = module.get<HttpService>(HttpService);
+    service = module.get<HttpPrivateService>(HttpPrivateService);
   });
 
   it('should be defined', () => {

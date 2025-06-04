@@ -8,7 +8,20 @@ import { Response, ParsedResult } from 'src/interfaces/search-results';
 export class HttpPrivateService {
   constructor(private readonly httpService: HttpService) {}
 
-  public find(query: string, page: number): Observable<Partial<ParsedResult>[]> {
+  /**
+   * Searches for items based on a query and paginated results.
+   *
+   * This method sends an HTTP GET request to the API endpoint with the provided query and page number.
+   * It processes the API response by checking for a 400 status code (to handle bad requests) and maps the
+   * results to an array of ParsedResult objects containing image metadata including dimensions, URLs, and descriptions.
+   *
+   * @param query - The search term to be encoded and sent as a query parameter.
+   * @param page - The page number for paginated results.
+   * @returns An observable stream of ParsedResult arrays.
+   *
+   * @throws Error If the response status is 400 or if any other error occurs during the HTTP request.
+   */
+  public find(query: string, page: number): Observable<ParsedResult[]> {
     return this.httpService
       .get<Response>(
         `${process.env.BASE_URL}?query=${encodeURIComponent(query)}&page=${page}`,
@@ -26,6 +39,7 @@ export class HttpPrivateService {
           }
 
           const data: Response = response.data;
+
           return data.results.map((item) => ({
             id: item.id,
             height: item.height,
