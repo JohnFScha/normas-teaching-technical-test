@@ -1,16 +1,22 @@
 import { CreateUserDto } from './create-user.dto';
 
 describe('CreateUserDto', () => {
-  it('should create a valid DTO with required fields', () => {
-    const dto: CreateUserDto = {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      password: 'SuperSecret123',
-      isActive: true,
-      favorites: []
-    };
+  let dto: CreateUserDto;
 
+  beforeEach(() => {
+    dto = new CreateUserDto();
+    dto.id = undefined; // Optional field, can be undefined
+    dto.firstName = 'John';
+    dto.lastName = 'Doe';
+    dto.email = 'john.doe@example.com';
+    dto.password = 'SuperSecret123';
+    dto.isActive = true;
+    dto.favorites = [];
+  });
+
+  it('should create a valid DTO with required fields', () => {
+    expect(dto).toBeDefined();
+    
     expect(dto.firstName).toBe('John');
     expect(dto.lastName).toBe('Doe');
     expect(dto.email).toBe('john.doe@example.com');
@@ -20,27 +26,27 @@ describe('CreateUserDto', () => {
   });
 
   it('should allow the optional id field', () => {
-    const dto: CreateUserDto = {
+    dto = {
       id: 'user123',
       firstName: 'Jane',
       lastName: 'Smith',
       email: 'jane.smith@example.com',
       password: 'Password123',
       isActive: false,
-      favorites: ['item1', 'item2']
+      favorites: ['item1', 'item2'],
     };
 
     expect(dto.id).toBe('user123');
   });
 
   it('should have id undefined when not provided', () => {
-    const dto: CreateUserDto = {
+    dto = {
       firstName: 'Alice',
       lastName: 'Johnson',
       email: 'alice.johnson@example.com',
       password: 'AlicePass!',
       isActive: true,
-      favorites: []
+      favorites: [],
     };
 
     expect(dto.id).toBeUndefined();
