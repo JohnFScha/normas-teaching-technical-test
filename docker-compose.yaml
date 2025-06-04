@@ -7,8 +7,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DATABASE_URL=postgres://postgres:12345678a@postgres:5432/image_db
-      - ACCESS_KEY=RtHAv-8Fg8V-4HRR_oVzLe5tblK_PQ6U52tbmYYB0dY
+      - DATABASE_URL=your_database_url_here
+      - ACCESS_KEY=your_access_key_here
       - BASE_URL=https://api.unsplash.com/search/photos/
     ports:
       - "3000:3000"
@@ -27,7 +27,7 @@ services:
     container_name: nestjs-postgres
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678a
+      POSTGRES_PASSWORD: your_postgres_password_here
       POSTGRES_DB: image_db
       POSTGRES_HOST_AUTH_METHOD: md5
     ports:
