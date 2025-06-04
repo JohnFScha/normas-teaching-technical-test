@@ -1,5 +1,4 @@
 // filepath: d:\Coding\normas-teaching-technical-test\src\favorites\favorites.service.spec.ts
-// We recommend installing an extension to run jest tests.
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { FavoritesService } from './favorites.service';
@@ -12,6 +11,8 @@ describe('FavoritesService', () => {
     create: jest.fn((dto: CreateFavoriteDto) => dto),
     save: jest.fn((favorite) => Promise.resolve({ id: 1, ...favorite })),
     find: jest.fn(() => Promise.resolve([{ id: 1, name: 'Test Favorite' }])),
+    findOne: jest.fn(() => Promise.resolve({ id: 1, name: 'Test Favorite' })),
+    delete: jest.fn(() => Promise.resolve({ affected: 1 })),
   };
 
   beforeEach(async () => {
@@ -43,5 +44,17 @@ describe('FavoritesService', () => {
     expect(mockFavoritesRepository.find).toHaveBeenCalled();
     expect(Array.isArray(result)).toBe(true);
     expect(result.length).toBeGreaterThan(0);
+  });
+
+  it('should find a favorite by id', async () => {
+    const favorite = await service.findOne(1);
+    expect(mockFavoritesRepository.find).toHaveBeenCalled();
+    expect(favorite).toHaveProperty('id', 1);
+  });
+
+  it('should remove a favorite by id', async () => {
+    const result = await service.remove(1);
+    expect(mockFavoritesRepository.find).toHaveBeenCalled();
+    expect(result).toEqual({ affected: 1 });
   });
 });

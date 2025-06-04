@@ -19,4 +19,12 @@ export class FavoritesService {
   findAll() {
     return this.favoritesRepository.find();
   }
+
+  findOne(id: number) {
+    return this.favoritesRepository.findOne({ where: { id } });
+  }
+
+  remove(id: number) {
+    return this.favoritesRepository.delete(id);
+  }
 }

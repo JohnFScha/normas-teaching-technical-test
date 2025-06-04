@@ -3,6 +3,8 @@ import {
   Get,
   Post,
   Body,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { FavoritesService } from './favorites.service';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
@@ -29,5 +31,16 @@ export class FavoritesController {
   @Get()
   findAll() {
     return this.favoritesService.findAll();
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: number) {
+    const favorite = await this.favoritesService.findOne(id);
+
+    if (!favorite) {
+      throw new Error('Favorite not found');
+    }
+    
+    return this.favoritesService.remove(id);
   }
 }
