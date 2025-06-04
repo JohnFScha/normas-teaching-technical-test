@@ -2,13 +2,23 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FavoritesService } from './favorites.service';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { UpdateFavoriteDto } from './dto/update-favorite.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('favorites')
 export class FavoritesController {
-  constructor(private readonly favoritesService: FavoritesService) {}
+  constructor(
+    private readonly favoritesService: FavoritesService,
+    private readonly usersService: UsersService, // Assuming you have a UsersService for user-related operations
+  ) {}
 
   @Post()
-  create(@Body() createFavoriteDto: CreateFavoriteDto) {
+  async create(@Body() createFavoriteDto: CreateFavoriteDto) {
+    const user = await this.usersService.findOne(createFavoriteDto.userId);
+    
+    if (!user) {
+      throw new Error('User not found');
+    }
+
     return this.favoritesService.create(createFavoriteDto);
   }
 

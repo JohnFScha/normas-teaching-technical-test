@@ -6,6 +6,7 @@ import { SearchModule } from './search/search.module';
 import { ConfigModule } from '@nestjs/config';
 import { ProvidersModule } from './providers/providers.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { Favorite } from './favorites/entities/favorite.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { FavoritesModule } from './favorites/favorites.module';
       password: '12345678a',
       database: 'image_db',
       autoLoadEntities: true,
-      entities: [User], // Explicitly include User entity
+      entities: [User, Favorite], // Explicitly include User entity
       synchronize: process.env.NODE_ENV !== 'production', // Only synchronize in development
     }),
     ProvidersModule,

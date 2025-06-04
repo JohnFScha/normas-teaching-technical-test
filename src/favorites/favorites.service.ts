@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { UpdateFavoriteDto } from './dto/update-favorite.dto';
+import { Favorite } from './entities/favorite.entity';
 
 @Injectable()
 export class FavoritesService {
+  constructor(
+      @InjectRepository(Favorite)
+      private favoritesRepository: Repository<Favorite>,
+    ) {}
+
   create(createFavoriteDto: CreateFavoriteDto) {
-    return 'This action adds a new favorite';
+    const favorite = this.favoritesRepository.create(createFavoriteDto);
+    return this.favoritesRepository.save(favorite);
   }
 
   findAll() {
-    return `This action returns all favorites`;
+    return this.favoritesRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} favorite`;
+    return this.favoritesRepository.findOneBy({ id });
   }
 
   update(id: number, updateFavoriteDto: UpdateFavoriteDto) {
-    return `This action updates a #${id} favorite`;
+    return this.favoritesRepository.update(id, updateFavoriteDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} favorite`;
+    return this.favoritesRepository.delete(id);
   }
 }

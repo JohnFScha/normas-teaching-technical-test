@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Favorite } from '../../favorites/entities/favorite.entity';
 
 @Entity()
 export class User {
@@ -19,4 +20,7 @@ export class User {
 
   @Column('boolean', { default: true })
   isActive: boolean;
+
+  @OneToMany(() => Favorite, (favorite) => favorite.user, { eager: true })
+  favorites: Favorite[];
 }
