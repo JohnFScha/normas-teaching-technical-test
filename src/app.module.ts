@@ -1,19 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/users.entity';
+import { User } from './users/entities/users.entity';
 import { SearchModule } from './search/search.module';
 import { ConfigModule } from '@nestjs/config';
 import { ProvidersModule } from './providers/providers.module';
+import { FavoritesModule } from './favorites/favorites.module';
 
 @Module({
   imports: [
     UsersModule,
     SearchModule,
     ConfigModule.forRoot({
-      envFilePath: '../.env', // Load environment variables from .env file
       isGlobal: true, // Makes the configuration available globally
     }),
     TypeOrmModule.forRoot({
@@ -28,8 +26,7 @@ import { ProvidersModule } from './providers/providers.module';
       synchronize: process.env.NODE_ENV !== 'production', // Only synchronize in development
     }),
     ProvidersModule,
+    FavoritesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
