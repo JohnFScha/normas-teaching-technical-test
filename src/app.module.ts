@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/users.entity';
+import { Favorite } from './favorites/entities/favorite.entity';
 import { SearchModule } from './search/search.module';
 import { ConfigModule } from '@nestjs/config';
 import { ProvidersModule } from './providers/providers.module';
 import { FavoritesModule } from './favorites/favorites.module';
-import { Favorite } from './favorites/entities/favorite.entity';
 
 @Module({
   imports: [

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SearchController } from './search.controller';
-import { ProvidersModule } from 'src/providers/providers.module';
-import { HttpPrivateService } from 'src/providers/http/http.service';
+import { ProvidersModule } from '../providers/providers.module';
+import { HttpPrivateService } from '../providers/http/http.service';
 
 @Module({
   imports: [ProvidersModule],
