@@ -17,14 +17,14 @@ import { Favorite } from './favorites/entities/favorite.entity';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5433,
+      host: process.env.NODE_ENV === 'production' ? 'postgres' : 'localhost',
+      port: process.env.NODE_ENV === 'production' ? 5432 : 5433,
       username: 'postgres',
       password: '12345678a',
       database: 'image_db',
       autoLoadEntities: true,
-      entities: [User, Favorite], // Explicitly include User entity
-      synchronize: process.env.NODE_ENV !== 'production', // Only synchronize in development
+      entities: [User, Favorite],
+      synchronize: process.env.NODE_ENV !== 'production',
     }),
     ProvidersModule,
     FavoritesModule,
