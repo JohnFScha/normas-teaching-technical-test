@@ -1,12 +1,12 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { SearchService } from './search.service';
+import { HttpPrivateService } from 'src/providers/http/http.service';
 
 @Controller('search')
 export class SearchController {
-  constructor(private readonly searchService: SearchService) {}
+  constructor(private readonly httpService: HttpPrivateService) {}
   // Example:
   @Get()
-  async search(@Query('query') query: string) {
-    return this.searchService.search(query);
+  search(@Query('query') query: string, @Query('page') page: number) {
+    return this.httpService.find(query, page);
   }
 }
