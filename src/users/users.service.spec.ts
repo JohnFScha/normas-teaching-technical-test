@@ -4,31 +4,32 @@ import { User } from './entities/users.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 const mockUsersRepository = {
-  create: jest.fn().mockImplementation((user: Partial<User>): User => user as User),
-    save: jest.fn().mockResolvedValue({
-        id: 'a28abb6c-0f85-4c18-a09a-c56ce4fe9f07',
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-    }),
-  find: jest
+  create: jest
     .fn()
-    .mockResolvedValue([
-      {
-        id: 'a28abb6c-0f85-4c18-a09a-c56ce4fe9f07',
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-      },
-    ]),
-  findOneBy: jest
-    .fn()
-    .mockResolvedValue({
+    .mockImplementation((user: Partial<User>): User => user as User),
+  save: jest.fn().mockResolvedValue({
+    id: 'a28abb6c-0f85-4c18-a09a-c56ce4fe9f07',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+  }),
+  find: jest.fn().mockResolvedValue([
+    {
       id: 'a28abb6c-0f85-4c18-a09a-c56ce4fe9f07',
       firstName: 'John',
       lastName: 'Doe',
       email: 'john.doe@example.com',
-    }),
+    },
+  ]),
+  findOneBy: jest.fn().mockResolvedValue({
+    id: 'a28abb6c-0f85-4c18-a09a-c56ce4fe9f07',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+  }),
+  delete: jest.fn().mockResolvedValue({
+    affected: 1,
+  }),
 };
 
 describe('UsersService', () => {
@@ -88,3 +89,4 @@ describe('UsersService', () => {
     expect(result).toHaveProperty('email', newUser.email);
   });
 });
+
