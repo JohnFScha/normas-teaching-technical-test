@@ -36,7 +36,7 @@ Normas Test is a NestJS backend application designed for managing users, searchi
 1. **Clone the Repository**
 
    ```sh
-   git clone <repository-url>
+   git clone https://github.com/JohnFScha/normas-teaching-technical-test.git
    cd normas-test
    ```
 
