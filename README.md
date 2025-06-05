@@ -1,16 +1,28 @@
 # Norma's Teaching Technical Test
 
+## Index
+
+- [Project Description](#project-description)
+- [Technologies Used](#technologies-used)
+- [Setup Instructions](#setup-instructions)
+- [Test Instructions](#test-instructions)
+- [Running with Docker](#running-with-docker)
+- [Known Limitations & Future Improvements](#known-limitations--future-improvements)
+- [Conclusion](#conclusion)
+
 ## Project Description
 
 Normas Test is a NestJS backend application designed for managing users, searching for images via an external API, and handling user favorites. The app leverages TypeORM with a PostgreSQL database and integrates external services like Unsplash for searching photos. The design follows a modular structure in which each domain (users, search, favorites, providers, etc.) has its own module, enhancing maintainability and scalability.
 
 ### Assumptions & Decisions
+
 - **Modularity**: The project is organized into distinct modules (e.g., [`UsersModule`](src/users/users.module.ts), [`SearchModule`](src/search/search.module.ts), [`FavoritesModule`](src/favorites/favorites.module.ts)) to isolate functionality.
 - **External Service Integration**: Integration with the Unsplash API is managed by the `HttpPrivateService` located in [`src/providers/http/http.service.ts`](src/providers/http/http.service.ts), with configuration via environment variables.
 - **Security & Password Management**: Bcrypt is used for password hashing.
 - **Database Choice**: PostgreSQL is utilized in both development and production environments with TypeORM handling entity interactions.
 
 ## Technologies Used
+
 - **Framework**: [NestJS](https://docs.nestjs.com/) v11
 - **Database ORM**: [TypeORM](https://typeorm.io/)
 - **Database**: PostgreSQL
@@ -31,7 +43,7 @@ Normas Test is a NestJS backend application designed for managing users, searchi
 2. **Install Dependencies**
 
    The project uses pnpm (as configured in [pnpm-workspace.yaml](pnpm-workspace.yaml)). Run:
-   
+
    ```sh
    pnpm install
    ```
@@ -61,7 +73,7 @@ Normas Test is a NestJS backend application designed for managing users, searchi
    Build the project using pnpm:
 
    ```sh
-   pnpm run build
+   pnpm build
    ```
 
 6. **Run the Application**
@@ -69,13 +81,13 @@ Normas Test is a NestJS backend application designed for managing users, searchi
    - For development (with live reloading):
 
      ```sh
-     pnpm run start:dev
+     pnpm start:dev
      ```
-     
+
    - For production:
 
      ```sh
-     pnpm run start:prod
+     pnpm start:prod
      ```
 
 ## Test Instructions
@@ -83,21 +95,30 @@ Normas Test is a NestJS backend application designed for managing users, searchi
 The project utilizes Jest for testing. To execute tests:
 
 - **Run all tests:**
-  
+
   ```sh
-  pnpm run test
+  pnpm test
   ```
 
 - **Run tests in watch mode:**
-  
+
   ```sh
-  pnpm run test:watch
+  pnpm test:watch
   ```
 
 - **Generate a Coverage Report:**
-  
+
   ```sh
-  pnpm run test:cov
+  pnpm test:cov
+  ```
+
+> [!IMPORTANT]
+> For the end to end to run correctly, be sure you start on an empty database.
+
+- **Run the app e2e test:**
+
+  ```sh
+  pnpm test:e2e
   ```
 
 ## Running with Docker
@@ -107,7 +128,7 @@ The application is containerized using Docker. To deploy the app using Docker:
 1. **Build and Start Containers**
 
    Ensure Docker is installed on your machine. Then run:
-   
+
    ```sh
    docker-compose up -d
    ```
@@ -117,13 +138,13 @@ The application is containerized using Docker. To deploy the app using Docker:
 2. **Verify Container Health**
 
    Check the status of the running containers with:
-   
+
    ```sh
    docker ps
    ```
 
    You can also inspect the logs to ensure the app is running correctly:
-   
+
    ```sh
    docker-compose logs -f app
    ```
@@ -131,7 +152,7 @@ The application is containerized using Docker. To deploy the app using Docker:
 3. **Stopping Containers**
 
    To stop the running containers, run:
-   
+
    ```sh
    docker-compose down
    ```
