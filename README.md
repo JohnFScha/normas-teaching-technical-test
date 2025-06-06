@@ -202,7 +202,3 @@ The application is containerized using Docker. To deploy the app using Docker:
 - **Validation Enhancements**: More robust input validation can be added using advanced DTO patterns and validation libraries.
 - **Performance Scalability**: Future iterations could optimize database queries, add caching strategies such as redis, and improve index configurations for a growing data set.
 - **Documentation**: Augmenting documentation, for example, with in-depth JSDoc annotations for each module and integration point will help new developers onboard faster.
-
-## Conclusion
-
-Normas Test offers a robust foundation built with modern technologies and best practices. It is designed with scalability and modularity in mind, ensuring that it can evolve with future requirements. Contributions for enhancements, refactoring, and additional features are welcome.
