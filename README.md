@@ -13,7 +13,15 @@
 
 ## Project Description
 
-Normas Test is a NestJS backend application designed for managing users, searching for images via an external API, and handling user favorites. The app leverages TypeORM with a PostgreSQL database and integrates external services like Unsplash for searching photos. The design follows a modular structure in which each domain (users, search, favorites, providers, etc.) has its own module, enhancing maintainability and scalability.
+This technical test is designed for Norma's Teaching Online English academy.
+
+It involves developing a REST API application using Node.js, pnpm, and TypeScript. The API will provide endpoints to manage a list of user favorites that are obtained from a search feature.
+
+Key features include:
+- **User Interaction**: Allow users to search and retrieve images.
+- **Unsplash Integration**: The search endpoint connects to Unsplash's API to fetch images.
+- **Favorites Management**: Enable users to add or remove images from their favorites list.
+- **RESTful Architecture**: Follows standard REST practices to create a clean, maintainable API.
 
 ### Assumptions & Decisions
 
