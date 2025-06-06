@@ -6,6 +6,7 @@
 - [Technologies Used](#technologies-used)
 - [Setup Instructions](#setup-instructions)
 - [Test Instructions](#test-instructions)
+- [API Endpoints](#api-endpoints)
 - [Running with Docker](#running-with-docker)
 - [Known Limitations & Future Improvements](#known-limitations--future-improvements)
 - [Conclusion](#conclusion)
@@ -120,6 +121,42 @@ The project utilizes Jest for testing. To execute tests:
   ```sh
   pnpm test:e2e
   ```
+
+## API Endpoints
+
+The application exposes several endpoints to interact with users, favorites, and image searches.
+
+### Users Endpoint
+
+- **GET /users**: Retrieve a list of all users.
+- **GET /users/:id**: Retrieve details of a specific user by providing the `id` in the URL.
+- **POST /users**: Create a new user. The request body must include:
+  - `firstName` (string)
+  - `lastName` (string)
+  - `email` (string; must be unique)
+  - `password` (string)
+  - Optional: `isActive` (boolean, defaults to `true`)
+  - Optional: `favorites` (array)
+- **DELETE /users/:id**: Delete an existing user by ID.
+
+### Favorites Endpoint
+
+- **GET /favorites**: Retrieve a list of all favorites.
+- **POST /favorites**: Create a new favorite. The request body must include:
+  - `description` (string)
+  - `imageUrl` (string)
+  - `userId` (string) to link the favorite to a user
+  - `createdAt` (Date) indicating when the favorite was created
+- **DELETE /favorites/:id**: Remove a favorite by its ID.
+
+### Search Endpoint
+
+- **GET /search**: Search for images.
+  - **Query Parameters:**
+    - `query` (string): The search term.
+    - `page` (number): The page number for paginated results.
+
+The `/search` endpoint uses an external service (e.g. the Unsplash API via the `HttpPrivateService`) and returns a list of images with properties such as `id`, `width`, `height`, `urls`, and `description`.
 
 ## Running with Docker
 
