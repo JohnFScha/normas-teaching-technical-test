@@ -1,15 +1,14 @@
 # Norma's Teaching Technical Test
 
-## Index
+## List of contents
 
-- [Project Description](#project-description)
-- [Technologies Used](#technologies-used)
-- [Setup Instructions](#setup-instructions)
-- [Test Instructions](#test-instructions)
-- [API Endpoints](#api-endpoints)
-- [Running with Docker](#running-with-docker)
-- [Known Limitations & Future Improvements](#known-limitations--future-improvements)
-- [Conclusion](#conclusion)
+1. [Project Description](#project-description)
+2. [Technologies Used](#technologies-used)
+3. [Setup Instructions](#setup-instructions)
+4. [Test Instructions](#test-instructions)
+5. [API Endpoints](#api-endpoints)
+6. [Running with Docker](#running-with-docker)
+7. [Known Limitations & Future Improvements](#known-limitations--future-improvements)
 
 ## Project Description
 
